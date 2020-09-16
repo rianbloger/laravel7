@@ -17,10 +17,30 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// tanpa Controller
+// Route::view('/', 'welcome');
+// Route::view('/contact', 'contact');
+
+// untuk ke direktori lanjutan bisa pake slash ataupun titik
+// Route::view('/series/create', 'series/create');
+// Route::view('/series/create', 'series.create');
+
+// Route::get('/', function () {
+//     return 'Homepage';
+// });
+
+// Route::get('/contact', function () {
+//     return 'Contact us.';
+// });
+
+// Route::get('/', function () {
+//     $name = "<h1>Irsyad A Panjaitan</h1>";
+//     return view('welcome', ['name' => $name]);
+// });
+
 Route::get('/', function () {
-    return 'Homepage';
+    return view('home');
 });
 
-Route::get('/contact', function () {
-    return 'Contact us.';
-});
+Route::view('/contact', 'contact');
+Route::view('/about', 'about');
