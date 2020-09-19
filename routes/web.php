@@ -57,7 +57,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 
-Route::get('/', [HomeController::class, 'index']);
+// Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class,'__invoke']);
 
 Route::view('/contact', 'contact');
 Route::view('/about', 'about');
