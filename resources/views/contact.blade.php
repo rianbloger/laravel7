@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
+@section('title','contact')
 
-@include('layouts.navigation')
-
-<body>
-      
-    <h1>Contact</h1>
-</body>
-
-</html>
+    
+@section('content')
+<div class="container">
+    Contact  
+</div>
+@endsection

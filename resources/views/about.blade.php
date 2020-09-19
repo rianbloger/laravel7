@@ -1,15 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
+@section('title','about')
+@section('head')
+<style>
+  body{
+      background: red;
+  }  
+</style>
+@endsection
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<div class="container">
+    About  
+</div>
+@endsection
 
-<body>
-    @include('layouts.navigation')
-    <h1>About</h1>
-</body>
-
-</html>
+@section('name')
+    
+@endsection

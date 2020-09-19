@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    @include('layouts.navigation')
-    <h1>Home</h1>
-</body>
-
-</html>
+@extends('layouts.app')
+@section('title','home')
+@section('content')
+<div class="container">
+    {{-- <?= "My name is ". htmlspecialchars($name) ?> --}}
+    My name is {{$name}}
+</div>
+    
+@endsection

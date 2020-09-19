@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+// use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,9 +38,26 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome', ['name' => $name]);
 // });
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     $name =  request('name');
+//     // return "My name is" . $name;
+//     return view('home', ['name' => $name]);
+// });
+
+// Route::get('/contact',function(Request $request){
+//     return $request->path() == 'contact' ? true : false;
+
+// })
+
+// Route::get('/contact', function () {
+//     // request()->fullUrl()
+//     // return request()->path() == 'contact' ? true : false;
+//     return request()->is('contact') ? true : false;
+// });
+
+use App\Http\Controllers\HomeController;
+
+Route::get('/', [HomeController::class, 'index']);
 
 Route::view('/contact', 'contact');
 Route::view('/about', 'about');
