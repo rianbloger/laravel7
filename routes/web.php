@@ -60,5 +60,9 @@ use App\Http\Controllers\HomeController;
 // Route::get('/', [HomeController::class, 'index']);
 Route::get('/', [HomeController::class,'__invoke']);
 
+use App\Http\Controllers\PostController;
+Route::get('/posts',[PostController::class,'index']);
+Route::get('/posts/{post:slug}',[PostController::class,'show']);
+
 Route::view('/contact', 'contact');
 Route::view('/about', 'about');
