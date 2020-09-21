@@ -10,7 +10,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        return Post::get();
+        $posts = Post::get();
+        // return Post::get(['title']);
+        return view('posts.index', ['posts' => $posts]);
     }
 
     public function show(Post $post)
@@ -23,6 +25,6 @@ class PostController extends Controller
         // if(is_null($post)){
         //     abort(404);
         // }
-        return view('posts.show',compact('post'));
+        return view('posts.show', compact('post'));
     }
 }
