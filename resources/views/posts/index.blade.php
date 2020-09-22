@@ -2,30 +2,31 @@
 
 @section('content')
 <div class="container">
+    <h4>All Post</h4>
     <div class="row">
-        <div class="col-md-6">
-            <h4>All Post</h4>
-            
+            <hr>
             @foreach ($posts as $post)
-            <div class="card mb-3">
-                <div class="card-header">
-                    {{ $post->title }}
-                </div>
-                <div class="card-body">
-                    <div>
-                        {{ Str::limit($post->body, 100, '...') }}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        {{ $post->title }}
                     </div>
-                    <a href="/posts/{{ $post->slug }}">Read more</a>
-                </div>
-                <div class="card-footer">
-                    Publish on {{ $post->created_at->format("d M, Y") }}
+                    <div class="card-body">
+                        <div>
+                            {{ Str::limit($post->body, 100, '...') }}
+                        </div>
+                        <a href="/posts/{{ $post->slug }}">Read more</a>
+                    </div>
+                    <div class="card-footer">
+                        Publish on {{ $post->created_at->format("d M, Y") }}
+                    </div>
                 </div>
             </div>
             @endforeach
-            
-            {{ $posts->links() }}
-
-        </div>
     </div>
+    <div class="d-flex justify-content-center">
+        {{ $posts->links() }}
+    </div>
+    
 </div>
 @endsection
