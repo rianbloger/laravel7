@@ -15,7 +15,10 @@
                     <div>
                         {{ Str::limit($post->body, 100, '...') }}
                     </div>
-                    <a href="#">Read more</a>
+                    <a href="/posts/{{ $post->slug }}">Read more</a>
+                </div>
+                <div class="card-footer">
+                    Publish on {{ $post->created_at->format("d M, Y") }}
                 </div>
             </div>
             @endforeach

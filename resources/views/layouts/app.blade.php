@@ -7,6 +7,14 @@
     <title>@yield('title')</title>
 {{-- <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}"> --}}
 <link rel="stylesheet" href="/css/bootstrap.min.css">
+<style>
+    .w-5{
+        height: 25px;
+    }
+    .flex.justify-between.flex-1{
+        display: none;
+    }
+</style>
 @yield('head')
 </head>
 
