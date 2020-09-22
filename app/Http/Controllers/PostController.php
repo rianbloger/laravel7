@@ -10,8 +10,12 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::get();
+        // $posts = Post::take(5)->get();
+        // $posts = Post::paginate(2);
         // return Post::get(['title']);
+        // User::where('votes', '>', 100)->paginate(15);
+        $posts = \DB::table('posts')->simplePaginate(2);
+        // dd($posts);
         return view('posts.index', ['posts' => $posts]);
     }
 
