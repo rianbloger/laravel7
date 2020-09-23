@@ -31,4 +31,9 @@ class PostController extends Controller
         // }
         return view('posts.show', compact('post'));
     }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
 }
