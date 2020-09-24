@@ -10,7 +10,8 @@
                     New Post
                 </div>
                 <div class="card-body">
-                    <form action=""  method="POST">
+                    <form action="/posts/store"  method="POST">
+                        @csrf
                         <div class="form-group">
                           <label for="">Title</label>
                           <input type="text" name="title" id="title" class="form-control" placeholder="" aria-describedby="helpId">
