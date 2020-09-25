@@ -52,9 +52,19 @@ class PostController extends Controller
         //     'body' => $request->body
         // ]);
 
-        $post = $request->all();
-        $post['slug'] =  \Str::slug($request->title);
-        Post::crate($post);
+        // $this->validate($request, [
+        //     'title' => 'required|min:3',
+        //     'body' => 'required'
+        // ]);
+        // penjelasan ada di resources lang/en validation.php
+        $attr = $request->validate([
+            'title' => 'required|min:3|max:10',
+            'body' => 'required'
+        ]);
+        // dd($attr);
+        // $post = $request->all();
+        $attr['slug'] =  \Str::slug($request->title);
+        Post::crate($attr);
         return back();
     }
 }
