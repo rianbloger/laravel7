@@ -37,7 +37,7 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request)
+    public function store_old(Request $request)
     {
         // $post = new Post;
         // $post->title = $request->title;
@@ -64,7 +64,18 @@ class PostController extends Controller
         // dd($attr);
         // $post = $request->all();
         $attr['slug'] =  \Str::slug($request->title);
-        Post::crate($attr);
+        Post::create($attr);
+        return back();
+    }
+
+    public function store()
+    {
+        $attr = request()->validate([
+            'title' => 'required|min:3|max:10',
+            'body' => 'required'
+        ]);
+        $attr['slug'] =  \Str::slug(request('title'));
+        Post::create($attr);
         return back();
     }
 }
