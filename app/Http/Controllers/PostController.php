@@ -76,6 +76,7 @@ class PostController extends Controller
         ]);
         $attr['slug'] =  \Str::slug(request('title'));
         Post::create($attr);
+        session()->flash('success', 'The post was created');
         return back();
     }
 }
