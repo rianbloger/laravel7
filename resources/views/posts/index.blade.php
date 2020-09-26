@@ -27,8 +27,9 @@
                     </div>
                     <a href="/posts/{{ $post->slug }}">Read more</a>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer d-flex justify-content-between">
                     Publish on {{ $post->created_at->format("d M, Y") }}
+                    <a href="/post/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
                 </div>
             </div>
         </div>

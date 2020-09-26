@@ -65,6 +65,10 @@ use App\Http\Controllers\PostController;
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/create', [PostController::class, 'create']);
 Route::post('/posts/store', [PostController::class, 'store']);
+
+Route::get('/posts/{post:slug}/edit', [PostController::class, 'edit']);
+Route::patch('/posts/{post:slug}/edit', [PostController::class, 'update']);
+
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
 

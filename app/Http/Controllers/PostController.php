@@ -79,4 +79,14 @@ class PostController extends Controller
         session()->flash('success', 'The post was created');
         return back();
     }
+
+    public function edit(Post $post)
+    {
+        return view('post.edit', compact('post'));
+    }
+
+    public function update(Post $post)
+    {
+        dd('updated');
+    }
 }
