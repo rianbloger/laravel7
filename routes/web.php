@@ -84,3 +84,6 @@ Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
 Route::view('/contact', 'contact');
 Route::view('/about', 'about');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
