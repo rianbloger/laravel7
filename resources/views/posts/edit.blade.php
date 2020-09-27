@@ -11,30 +11,11 @@
                     Update Post {{ $post->title }}
                 </div>
                 <div class="card-body">
-                    <form action="/posts/store"  method="POST">
+                    <form action="/posts/{{ $post->slug }}/edit"  method="POST">
+                        @method('patch')
                         @csrf
-                        <div class="form-group">
-                          <label for="">Title</label>
-                          <input type="text" name="title" id="title" class="form-control" placeholder="" aria-describedby="helpId">
-                          @error('title')
-                              {{-- Title itu harus di isi --}}
-                              <div class="mt-2 text-danger">
-                                  {{ $message }}
-                              </div>
-                          @enderror
-                        </div>
-                        <div class="form-group">
-                          <label for="">Body</label>
-                          <textarea name="body" class="form-control" id="body" cols="30" rows="10"></textarea>
-                          @error('body')
-                              {{-- Title itu harus di isi --}}
-                              <div class="mt-2 text-danger">
-                                  {{ $message }}
-                              </div>
-                          @enderror
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        {{-- @include('posts.partials.form-control',['posts', new App\Post()]) --}}
+                        @include('posts.partials.form-control')
                     </form>
                 </div>
             </div>

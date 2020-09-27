@@ -5,7 +5,17 @@
     @if ($posts->count() )
     <div class="d-flex justify-content-between">
         <div>
-            <h4>All Post</h4>
+            @isset($category)
+            <h4>Category {{ $category->name }}</h4>
+            @endisset
+
+            @isset($tag)
+            <h4>Tag {{ $tag->name }}</h4>
+            @endisset
+            
+            @if (!isset($category) && !isset($tag))
+                <h4>All posts</h4>
+            @endif
             <hr>
         </div>
         <div>
@@ -29,7 +39,7 @@
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     Publish on {{ $post->created_at->format("d M, Y") }}
-                    <a href="/post/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
+                    <a href="/posts/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
                 </div>
             </div>
         </div>

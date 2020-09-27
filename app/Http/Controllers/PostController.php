@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 // use \App\Models\Post;
 
@@ -11,7 +14,7 @@ class PostController extends Controller
     public function index()
     {
         // $posts = Post::take(5)->get();
-        $posts = Post::paginate(6);
+        $posts = Post::latest()->paginate(6);
         // return Post::get(['title']);
         // User::where('votes', '>', 100)->paginate(15);
         // $posts = \DB::table('posts')->simplePaginate(2);
@@ -34,7 +37,11 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create',[
+            'post'=> new Post(),
+            'categories' => Category::get(),
+            'tags' => Tag::get(),
+            ]);
     }
 
     public function store_old(Request $request)
@@ -68,25 +75,52 @@ class PostController extends Controller
         return back();
     }
 
-    public function store()
+    public function store(PostRequest $request)
     {
-        $attr = request()->validate([
-            'title' => 'required|min:3|max:10',
-            'body' => 'required'
-        ]);
+        // $attr = $this->validateRequest();
+        $attr = $request->all();
         $attr['slug'] =  \Str::slug(request('title'));
-        Post::create($attr);
+        $attr['category_id'] = request('category');
+        $post = Post::create($attr);
+        $post->tags()->attach(request('tags'));
         session()->flash('success', 'The post was created');
         return back();
     }
 
     public function edit(Post $post)
     {
-        return view('post.edit', compact('post'));
+        
+        return view('posts.edit', [
+            'post' => $post,
+            'categories' => Category::get(),
+            'tags' => Tag::get(),
+        ]);
     }
 
-    public function update(Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        dd('updated');
+        $attr = $request->all();
+        $attr['category_id'] = request('category');
+        // $attr = $this->validateRequest();
+        $post->update($attr);
+        $post->tags()->sync(request('tags'));
+        session()->flash('success', 'The post was updated');
+        return redirect('posts');
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->tags()->detach();
+         $post->delete();
+         session()->flash('success','The post was destroyed');
+         return redirect('posts');
+    }
+
+    public function validateRequest()
+    {
+        return request()->validate([
+            'title' => 'required|min:3|max:10',
+            'body' => 'required'
+        ]);
     }
 }
