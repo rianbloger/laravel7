@@ -18,6 +18,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .w-5.h-5{
+            height: 15px;
+        }
+        .flex.justify-between.flex-1{
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div id="app">

@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         // $posts = Post::take(5)->get();
@@ -37,11 +43,11 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('posts.create',[
-            'post'=> new Post(),
+        return view('posts.create', [
+            'post' => new Post(),
             'categories' => Category::get(),
             'tags' => Tag::get(),
-            ]);
+        ]);
     }
 
     public function store_old(Request $request)
@@ -89,7 +95,7 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        
+
         return view('posts.edit', [
             'post' => $post,
             'categories' => Category::get(),
@@ -111,9 +117,9 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->tags()->detach();
-         $post->delete();
-         session()->flash('success','The post was destroyed');
-         return redirect('posts');
+        $post->delete();
+        session()->flash('success', 'The post was destroyed');
+        return redirect('posts');
     }
 
     public function validateRequest()
