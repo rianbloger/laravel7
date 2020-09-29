@@ -38,18 +38,8 @@ class RefreshDatabaseCommand extends Command
     public function handle()
     {
         $this->call('migrate:refresh');
+        $this->call('db:seed');
 
-        $categories = collect(['Framework', 'Code']);
-        $categories->each(function ($c) {
-            \App\Models\Category::create([
-                'name' => $c,
-                'slug' => \Str::slug($c)
-            ]);
-        });
-
-
-
-        // $this->line('This command has been ran');
         $this->info('All database has ben refresed and seeded.');
     }
 }
