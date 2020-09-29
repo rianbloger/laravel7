@@ -53,10 +53,14 @@
     <p>
         {{ $post->body }}
     </p>
-    <div> 
-        <button type="button" class="btn btn-link text-danger btn-sm p-0" data-toggle="modal" data-target="#exampleModal">
-            Delete
-          </button>
+    <div>
+@auth
+<button type="button" class="btn btn-link text-danger btn-sm p-0" data-toggle="modal" data-target="#exampleModal">
+  Delete
+</button>
+@endauth
+        
+
     </div>
 </div>
     

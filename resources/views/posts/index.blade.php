@@ -43,7 +43,9 @@
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     Publish on {{ $post->created_at->format("d M, Y") }}
+                    @auth
                     <a href="/posts/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
+                    @endauth
                 </div>
             </div>
         </div>
