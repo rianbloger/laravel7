@@ -10,6 +10,8 @@ class Tag extends Model
 {
     use HasFactory;
 
+    protected $filable = ['name', 'slug'];
+
     public function posts()
     {
         // sama saja karena laavel sudah 
