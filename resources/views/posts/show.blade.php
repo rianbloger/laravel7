@@ -54,11 +54,14 @@
         {{ $post->body }}
     </p>
     <div>
-@auth
+      <div class="text-secondary">
+        Worth by {{ $post->author->name }}
+      </div>
+@if (auth()->user()->id == $post->user_id)
 <button type="button" class="btn btn-link text-danger btn-sm p-0" data-toggle="modal" data-target="#exampleModal">
   Delete
 </button>
-@endauth
+@endif
         
 
     </div>
