@@ -14,7 +14,7 @@ class PostController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','show']);
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
     public function index()
@@ -78,7 +78,8 @@ class PostController extends Controller
         // $post = $request->all();
         $attr['slug'] =  \Str::slug($request->title);
         Post::create($attr);
-        return back();
+        // return back();
+        return redirect('posts');
     }
 
     public function store(PostRequest $request)
@@ -87,10 +88,12 @@ class PostController extends Controller
         $attr = $request->all();
         $attr['slug'] =  \Str::slug(request('title'));
         $attr['category_id'] = request('category');
-        $post = Post::create($attr);
+        // $attr['user_id'] = auth()->id();
+        // $post = Post::create($attr);
+        $post = auth()->user()->posts()->create($attr);
         $post->tags()->attach(request('tags'));
         session()->flash('success', 'The post was created');
-        return back();
+        return redirect('posts');
     }
 
     public function edit(Post $post)
@@ -107,6 +110,7 @@ class PostController extends Controller
     {
         $attr = $request->all();
         $attr['category_id'] = request('category');
+        $attr['user_id'] = auth()->id();
         // $attr = $this->validateRequest();
         $post->update($attr);
         $post->tags()->sync(request('tags'));

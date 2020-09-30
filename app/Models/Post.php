@@ -9,7 +9,8 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'body','category_id'];
+    // protected $fillable = ['title', 'slug', 'body', 'category_id', 'user_id'];
+    protected $fillable = ['title', 'slug', 'body', 'category_id'];
 
     public function category()
     {
@@ -21,6 +22,18 @@ class Post extends Model
     public function tags()
     {
         return $this->BelongsToMany(Tag::class);
+    }
+
+    // idealnya
+
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     // public function getRouteKeyname()

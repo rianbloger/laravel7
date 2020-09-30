@@ -63,6 +63,7 @@
           <h4 class="alert-heading">There are no post.</h4>
           <p></p>
           <p class="mb-0"></p>
+          <a href="{{ route('posts.create') }}" class="btn btn-primary">New post</a>
         </div>
             
         @endif
