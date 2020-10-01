@@ -11,7 +11,7 @@
                     New Post
                 </div>
                 <div class="card-body">
-                    <form action="/posts/store"  method="POST">
+                    <form action="/posts/store"  method="POST" enctype="multipart/form-data">
                         @csrf
                         @include('posts.partials.form-control',['submit'=> 'Create'])
                     </form>

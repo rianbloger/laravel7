@@ -35,6 +35,7 @@
                 <div class="card-header">
                     {{ $post->title }}
                 </div>
+                <img class="card-img-top" src="{{ asset("storage/".$post->thumbnail) }}"></img>
                 <div class="card-body">
                     <div>
                         {{ Str::limit($post->body, 100, '...') }}

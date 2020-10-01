@@ -84,9 +84,14 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        // $attr = $this->validateRequest();
         $attr = $request->all();
-        $attr['slug'] =  \Str::slug(request('title'));
+        $slug =  \Str::slug(request('title'));
+        $attr['slug'] =  $slug;
+        $thumbnail = request()->file('thumbnail');
+        $thumbnailUrl = $thumbnail->storeAs("images/posts", "{$slug}.{$thumbnail->extension()}");
+        // $attr = $this->validateRequest();
+
+        $attr['thumbnail'] = $thumbnailUrl;
         $attr['category_id'] = request('category');
         // $attr['user_id'] = auth()->id();
         // $post = Post::create($attr);

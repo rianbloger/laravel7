@@ -1,4 +1,7 @@
 <div class="form-group">
+  <input type="file" name="thumbnail" id="thumbnail">
+</div>
+<div class="form-group">
     <label for="">Title</label>
     <input type="text" name="title" id="title" value="{{ old('title') ?? $post->title }}" class="form-control" placeholder="" aria-describedby="helpId">
     @error('title')
