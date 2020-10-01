@@ -108,6 +108,7 @@ class PostController extends Controller
 
     public function update(PostRequest $request, Post $post)
     {
+        $this->authorize('update', $post);
         $attr = $request->all();
         $attr['category_id'] = request('category');
         $attr['user_id'] = auth()->id();
@@ -120,16 +121,15 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        if(auth()->user()->is($post->author)){
+        if (auth()->user()->is($post->author)) {
             $post->tags()->detach();
-        $post->delete();
-        session()->flash('success', 'The post was destroyed');
-        return redirect('posts');
-        }else{
-            session()->flash('Error',"It wasn't your post");
-        return redirect('posts');
+            $post->delete();
+            session()->flash('success', 'The post was destroyed');
+            return redirect('posts');
+        } else {
+            session()->flash('Error', "It wasn't your post");
+            return redirect('posts');
         }
-        
     }
 
     public function validateRequest()

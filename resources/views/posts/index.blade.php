@@ -43,9 +43,12 @@
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     Publish on {{ $post->created_at->format("d M, Y") }}
-                    @auth
+                    {{-- @if (auth()->user()->is($post->author))
                     <a href="/posts/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
-                    @endauth
+                    @endif --}}
+                    @can('update', $post)
+                    <a href="/posts/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
+                    @endcan
                 </div>
             </div>
         </div>
