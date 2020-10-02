@@ -32,11 +32,14 @@
         @foreach ($posts as $post)
         <div class="col-md-4">
             <div class="card mb-4">
-                <div class="card-header">
-                    {{ $post->title }}
-                </div>
-                <img style="height: 270px; object-fit:cover; object-position:center" class="card-img-top" src="{{ asset("storage/".$post->thumbnail) }}"></img>
+                
+                @if ($post->thumbnail)
+                <img style="height: 270px; object-fit:cover; object-position:center" class="card-img-top" src="{{ asset("storage/".$post->thumbnail) }}"></img>    
+                @endif
                 <div class="card-body">
+                    <div class="card-title">
+                        {{ $post->title }}
+                    </div>
                     <div>
                         {{ Str::limit($post->body, 100, '...') }}
                     </div>

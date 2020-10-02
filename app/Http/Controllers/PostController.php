@@ -89,13 +89,18 @@ class PostController extends Controller
         ]);
         $attr = $request->all();
         $slug =  \Str::slug(request('title'));
+        if (request()->file('thumbnail')) {
+            $thumbnail = request()->file('thumbnail')->store("images/posts");
+        } else {
+            $thumbnail = null;
+        }
         $attr['slug'] =  $slug;
-        $thumbnail = request()->file('thumbnail');
-        $thumbnailUrl = $thumbnail->store("images/posts");
+
+
         // $thumbnailUrl = $thumbnail->storeAs("images/posts", "{$slug}.{$thumbnail->extension()}");
         // $attr = $this->validateRequest();
 
-        $attr['thumbnail'] = $thumbnailUrl;
+        $attr['thumbnail'] = $thumbnail;
         $attr['category_id'] = request('category');
         // $attr['user_id'] = auth()->id();
         // $post = Post::create($attr);
@@ -117,6 +122,9 @@ class PostController extends Controller
 
     public function update(PostRequest $request, Post $post)
     {
+        $request->validate([
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
+        ]);
         $this->authorize('update', $post);
         if (request()->file('thumbnail')) {
             \Storage::delete($post->thumbnail);
