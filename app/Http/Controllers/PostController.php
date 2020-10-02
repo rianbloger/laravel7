@@ -84,11 +84,15 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
+        $request->validate([
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
+        ]);
         $attr = $request->all();
         $slug =  \Str::slug(request('title'));
         $attr['slug'] =  $slug;
         $thumbnail = request()->file('thumbnail');
-        $thumbnailUrl = $thumbnail->storeAs("images/posts", "{$slug}.{$thumbnail->extension()}");
+        $thumbnailUrl = $thumbnail->store("images/posts");
+        // $thumbnailUrl = $thumbnail->storeAs("images/posts", "{$slug}.{$thumbnail->extension()}");
         // $attr = $this->validateRequest();
 
         $attr['thumbnail'] = $thumbnailUrl;
@@ -114,8 +118,16 @@ class PostController extends Controller
     public function update(PostRequest $request, Post $post)
     {
         $this->authorize('update', $post);
+        if (request()->file('thumbnail')) {
+            \Storage::delete($post->thumbnail);
+            $thumbnail = request()->file('thumbnail')->store("images/posts");
+        } else {
+            $thumbnail = $post->thumbnail;
+        }
+
         $attr = $request->all();
         $attr['category_id'] = request('category');
+        $attr['thumbnail'] = $thumbnail;
         $attr['user_id'] = auth()->id();
         // $attr = $this->validateRequest();
         $post->update($attr);
@@ -127,6 +139,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         if (auth()->user()->is($post->author)) {
+            \Storage::delete($post->thumbnail);
             $post->tags()->detach();
             $post->delete();
             session()->flash('success', 'The post was destroyed');
