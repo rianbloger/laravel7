@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     @if ($posts->count() )
-    <div class="d-flex justify-content-between">
+    <div>
         <div>
             @isset($category)
             <h4>Category {{ $category->name }}</h4>
@@ -18,42 +18,42 @@
             @endif
             <hr>
         </div>
-        <div>
+        {{-- <div>
             @if (Auth::check())
             <a href="{{ route('posts.create') }}" class="btn btn-primary">New post</a>
             @else
             <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
             @endif
-        </div>
+        </div> --}}
     </div>
     
     <div class="row">
         
         @foreach ($posts as $post)
-        <div class="col-md-4">
-            <div class="card mb-4">
+        <div class="col-md-6">
                 
-                @if ($post->thumbnail)
-                <img style="height: 270px; object-fit:cover; object-position:center" class="card-img-top" src="{{ asset("storage/".$post->thumbnail) }}"></img>    
-                @endif
-                <div class="card-body">
-                    <div class="card-title">
-                        {{ $post->title }}
-                    </div>
-                    <div>
-                        {{ Str::limit($post->body, 100, '...') }}
-                    </div>
-                    <a href="/posts/{{ $post->slug }}">Read more</a>
+            @if ($post->thumbnail)
+            <a href="{{ route('posts.show',$post->slug) }}">
+            <img style="height: 320px; object-fit:cover; object-position:center" class="card-img-top" src="{{ asset("storage/".$post->thumbnail) }}"></img>    
+        </a>
+            @endif
+            <div class="card-body">
+                <a  href="{{ route('posts.show',$post->slug) }}" class="card-title">
+                    {{ $post->title }}
+                </a>
+                <div>
+                    {{ Str::limit($post->body, 100, '...') }}
                 </div>
-                <div class="card-footer d-flex justify-content-between">
-                    Publish on {{ $post->created_at->format("d M, Y") }}
-                    {{-- @if (auth()->user()->is($post->author))
-                    <a href="/posts/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
-                    @endif --}}
-                    @can('update', $post)
-                    <a href="/posts/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
-                    @endcan
-                </div>
+                {{-- <a href="/posts/{{ $post->slug }}">Read more</a> --}}
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                Publish on {{ $post->created_at->format("d M, Y") }}
+                {{-- @if (auth()->user()->is($post->author))
+                <a href="/posts/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
+                @endif --}}
+                @can('update', $post)
+                <a href="/posts/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
+                @endcan
             </div>
         </div>
         @endforeach

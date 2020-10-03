@@ -144,7 +144,7 @@ class PostController extends Controller
         return redirect('posts');
     }
 
-    public function destroy(Post $post)
+    public function destroy_old(Post $post)
     {
         if (auth()->user()->is($post->author)) {
             \Storage::delete($post->thumbnail);
@@ -156,6 +156,16 @@ class PostController extends Controller
             session()->flash('Error', "It wasn't your post");
             return redirect('posts');
         }
+    }
+
+    public function destroy(Post $post)
+    {
+        $this->authorize('delete', $post);
+        \Storage::delete($post->thumbnail);
+        $post->tags()->detach();
+        $post->delete();
+        session()->flash('success', 'The post was destroyed');
+        return redirect('posts');
     }
 
     public function validateRequest()
