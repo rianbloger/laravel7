@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->username == "Rian";
     }
+
+    public function gravatar($size = 150)
+    {
+        return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($this->email))) . "?d=mv&s=" . $size;
+    }
 }

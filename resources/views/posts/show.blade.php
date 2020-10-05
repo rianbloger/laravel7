@@ -40,7 +40,7 @@
     </div>
   </div>
     <h1>{{ $post->title }}</h1>
-    <div class="text-secondary">
+    <div class="text-secondary mb-3">
         <a href="/categories/{{ $post->category->slug }}">
           {{ $post->category->name }} 
         </a>
@@ -48,19 +48,32 @@
         @foreach ($post->tags as $tag)
             <a href="/tags/{{ $tag->slug }}">{{ $tag->name }}</a>
         @endforeach
+        <div class="media my-3">
+          <img width="60"  src="{{ $post->author->gravatar() }}" alt="" class="mr-3"   class="rounded-circle" >
+          <div class="media-body">
+            {{ $post->author->name }}
+            {{ '@'.$post->author->username }}
+          </div>
+          
+          {{-- Worth by {{ $post->author->name }} --}}
+        </div>
     </div>
-    <hr>
+    {{-- <hr>  --}}
     <p>
-        {{ $post->body }}
+        {!! nl2br($post->body) !!}
     </p>
     <div>
-      <div class="text-secondary">
-        Worth by {{ $post->author->name }}
-      </div>
+      
 @if (auth()->user()->id == $post->user_id)
-<button type="button" class="btn btn-link text-danger btn-sm p-0" data-toggle="modal" data-target="#exampleModal">
-  Delete
-</button>
+<div class="flex mt-3">
+  <button type="button" class="btn btn-danger  btn-sm " data-toggle="modal" data-target="#exampleModal">
+    Delete
+  </button>
+  @can('update', $post)
+                <a href="/posts/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
+                @endcan
+</div>
+
 @endif
         
 

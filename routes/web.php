@@ -80,7 +80,7 @@ Route::prefix('posts')->middleware('auth')->group(function () {
 });
 Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 
-Route::get('categories/{category:slug}', [CategoryController::class, 'show']);
+Route::get('categories/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
 
 
 Route::get('tags/{tag:slug}', [TagController::class, 'show']);

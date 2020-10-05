@@ -38,23 +38,43 @@
         </a>
             @endif
             <div class="card-body">
+                <div>
+                    <a href="{{ route('categories.show',$post->category->slug) }}" class="text-secondary">
+                        {{ $post->category->name }}
+                    </a>
+                </div>
+                
                 <a  href="{{ route('posts.show',$post->slug) }}" class="card-title">
                     {{ $post->title }}
                 </a>
                 <div>
                     {{ Str::limit($post->body, 100, '...') }}
                 </div>
-                {{-- <a href="/posts/{{ $post->slug }}">Read more</a> --}}
+                <div class="d-flex justify-content-between align-items-center  mt-2">
+                    <div class="media align-items-center">
+                        <img width="40"  src="{{ $post->author->gravatar() }}" alt="" class="mr-3"   class="rounded-circle" >
+                        <div class="media-body">
+                          {{ $post->author->name }}
+                        </div>
+                        
+                        {{-- Worth by {{ $post->author->name }} --}}
+                      </div>
+                    <div class="text-secondary">
+                        <small>
+                            {{-- <a href="/posts/{{ $post->slug }}">Read more</a> --}}
+                        Publish on {{ $post->created_at->format("d M, Y") }}
+                        {{-- @if (auth()->user()->is($post->author))
+                        <a href="/posts/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
+                        @endif --}}
+                        </small>
+                        
+                    </div>
+                </div>
+                
+                
+                    
             </div>
-            <div class="card-footer d-flex justify-content-between">
-                Publish on {{ $post->created_at->format("d M, Y") }}
-                {{-- @if (auth()->user()->is($post->author))
-                <a href="/posts/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
-                @endif --}}
-                @can('update', $post)
-                <a href="/posts/{{ $post->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
-                @endcan
-            </div>
+            
         </div>
         @endforeach
             
